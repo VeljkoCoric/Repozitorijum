@@ -11,8 +11,7 @@ import java.util.List;
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
     public default Korisnik findbyEmail(String Email) {
         KorisnikController korisnikController = new KorisnikController();
-        Korisnik korisnik;
-        korisnik = korisnikController.getKorisnikByEmail(Email);
+        Korisnik korisnik = korisnikController.getKorisnikByEmail(Email);
         return korisnik;
     }
 
@@ -20,4 +19,5 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
         return findAll();
     }
 }
+
 

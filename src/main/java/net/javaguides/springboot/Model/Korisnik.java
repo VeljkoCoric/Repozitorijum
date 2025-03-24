@@ -4,19 +4,27 @@ package net.javaguides.springboot.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import net.javaguides.springboot.controller.KorisnikController;
+import net.javaguides.springboot.repository.KorisnikRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 
 @Entity
 @Table(name = "Korisnik")
-public class Korisnik  {
+public class Korisnik implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Korisnikid;
@@ -35,77 +43,94 @@ public class Korisnik  {
     @Column(name = "Uloga")
     private String uloga;
 
-    public Korisnik(long korisnikid, String ime, String prezime, String email, String korisnickoIme, String sifra, String uloga) {
-        Korisnikid = korisnikid;
-        Ime = ime;
-        Prezime = prezime;
-        Email = email;
-        KorisnickoIme = korisnickoIme;
-        this.sifra = sifra;
-        this.uloga = uloga;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROlE"+ this.uloga));
     }
 
-    public static User.UserBuilder withUsername(String email) {
-        return null;
+    @Override
+    public String getPassword() {
+        return this.sifra;
     }
 
-
-    public long getKorisnikid() {
-        return Korisnikid;
+    @Override
+    public String getUsername() {
+        return this.Email;
     }
-
-    public String getIme() {
-        return Ime;
     }
+//    public Korisnik(long korisnikid, String ime, String prezime, String email, String korisnickoIme, String sifra, String uloga) {
+//        Korisnikid = korisnikid;
+//        Ime = ime;
+//        Prezime = prezime;
+//        Email = email;
+//        KorisnickoIme = korisnickoIme;
+//        this.sifra = sifra;
+//        this.uloga = uloga;
+//    }
 
-    public String getEmail() {
-        return Email;
-    }
+//
+//    public User.UserBuilder withUsername(String email) {
+//        return
+//    }
+//
+//
+//    public long getKorisnikid() {
+//        return Korisnikid;
+//    }
+//
+//    public String getIme() {
+//        return Ime;
+//    }
+//
+//    public String getEmail() {
+//        return Email;
+//    }
+//
+//    public String getPrezime() {
+//        return Prezime;
+//    }
+//
+//    public String getKorisnickoIme() {
+//        return KorisnickoIme;
+//    }
+//
+//    public String getSifra() {
+//        return sifra;
+//    }
+//
+//    public String getUloga() {
+//        return uloga;
+//    }
+//
+//    public void setKorisnikid(long korisnikid) {
+//        Korisnikid = korisnikid;
+//    }
+//
+//    public void setIme(String ime) {
+//        Ime = ime;
+//    }
+//
+//    public void setPrezime(String prezime) {
+//        Prezime = prezime;
+//    }
+//
+//    public void setEmail(String email) {
+//        Email = email;
+//    }
+//
+//    public void setKorisnickoIme(String korisnickoIme) {
+//        KorisnickoIme = korisnickoIme;
+//    }
+//
+//    public void setSifra(String sifra) {
+//        this.sifra = sifra;
+//    }
+//
+//    public void setUloga(String uloga) {
+//        this.uloga = uloga;
+//    }
+//
+//    public Korisnik setKorisnickoIme() {
+//    }
 
-    public String getPrezime() {
-        return Prezime;
-    }
-
-    public String getKorisnickoIme() {
-        return KorisnickoIme;
-    }
-
-    public String getSifra() {
-        return sifra;
-    }
-
-    public String getUloga() {
-        return uloga;
-    }
-
-    public void setKorisnikid(long korisnikid) {
-        Korisnikid = korisnikid;
-    }
-
-    public void setIme(String ime) {
-        Ime = ime;
-    }
-
-    public void setPrezime(String prezime) {
-        Prezime = prezime;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public void setKorisnickoIme(String korisnickoIme) {
-        KorisnickoIme = korisnickoIme;
-    }
-
-    public void setSifra(String sifra) {
-        this.sifra = sifra;
-    }
-
-    public void setUloga(String uloga) {
-        this.uloga = uloga;
-    }
-
-
-}
 

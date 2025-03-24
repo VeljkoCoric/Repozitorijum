@@ -1,12 +1,14 @@
 package net.javaguides.springboot.controller;
 
 
+import net.javaguides.springboot.Service.KorisnikService;
 import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.Model.Korisnik;
 import net.javaguides.springboot.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +19,11 @@ public class KorisnikController {
 
     @Autowired
     private KorisnikRepository korisnikRepository;
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping
-    public List<Korisnik> getAllKorisnik(){
+    public  List<Korisnik> getAllKorisnik(){
         return korisnikRepository.findAllKorisnik();
 
     }
@@ -33,8 +37,8 @@ public class KorisnikController {
         System.out.println("test");
         Korisnik k = null;
         List<Korisnik> lista = getAllKorisnik();
-        for(Korisnik kor : lista)
-            if(kor.getEmail().equals(Email)){
+        for (Korisnik kor : lista)
+            if (kor.getEmail().equals(Email)) {
                 k = kor;
             }
         return k;
@@ -70,4 +74,7 @@ public class KorisnikController {
     }
 
 
+    public  Korisnik findByEmail(String email) {
+        return new Korisnik();
+    }
 }

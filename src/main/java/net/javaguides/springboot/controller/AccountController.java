@@ -69,7 +69,7 @@ for(Korisnik k : lista){
         newkorisnik.setKorisnickoIme(registracijaDto.getKorisnickoIme());
         newkorisnik.setEmail(registracijaDto.getEmail());
         newkorisnik.setUloga("client");
-        newkorisnik.setSifra(registracijaDto.getSifra());
+        newkorisnik.setSifra(bCryptEncoder.encode(registracijaDto.getSifra()));
       korisnikRepository.save(newkorisnik);
         model.addAttribute("success", true);
      model.addAttribute("registracijaDto", new RegistracijaDto());

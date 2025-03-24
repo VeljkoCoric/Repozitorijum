@@ -18,8 +18,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/contact").permitAll()
+                        .requestMatchers("/profile").permitAll()
+                        .requestMatchers("/settings").permitAll()
                         .requestMatchers("/store/**").permitAll()
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/api/v1/Rezervacija").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
                         .requestMatchers("/api/v1/**").permitAll()
